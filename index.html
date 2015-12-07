@@ -1,0 +1,29 @@
+<!doctype html>
+<html ng-app="ngFit">
+  <head lang="ru-RU">
+    <meta charset="UTF-8">
+    <title>Geek Fitness</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.min.css">
+    <base href="/">
+  </head>
+  <body>
+  
+  
+  <div ng-include="'app/navbar/navbar.html'"></div>  
+  <div class="container" ng-view>
+
+  </div>
+  <div ng-include="'app/auth/auth.html'"></div>  
+  <!-- Others JS Files -->
+  <script src="libs/jquery/jquery.js"></script>
+  <script src="libs/bootstrap/js/bootstrap.js"></script>
+  <script src="libs/bootstrap-material-design/js/material.js"></script>
+  <script src="libs/bootstrap-material-design/js/ripples.js"></script>
+  <!-- AngularJs vDependencies -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="libs/angular/angular.concat.js"></script>
+  <!-- Our JS App Fies -->
+  <script src="app/app.js"></script>
+  </body>
+</html>

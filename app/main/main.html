@@ -1,0 +1,36 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12" ng-show="vm.check()"> 
+		<h1>Добавь упражнение</h1>
+		<form name="newUser" ng-submit="vm.addExercise()">
+			<input class="form-control" placeholder="Название упражнения" type="text" ng-model="vm.exercise.full_name">
+			<input class="form-control" placeholder="Ссылка на видео или картинку упражнения с правильной техникой" type="text" ng-model="vm.exercise.video_url">
+			<textarea class="form-control" placeholder="Небольшое описание упражнения" ng-model="vm.exercise.description"></textarea>
+			<button class="btn btn-inverse">Добавить упражнение</button>
+		</form>
+	</div>
+</div>
+<div class="exercises row">
+	<div class="col-xs-12 exercies_header"  ng-show="vm.check()">
+		<a href="javascript:void(0);" ng-click="vm.toggleExercises();" ng-class="{'btn-flat': !vm.all}" class="all btn btn-inverse">Все</a>
+		<a href="javascript:void(0);" ng-click="vm.toggleExercises();" ng-class="{'btn-flat': vm.all}" class="my btn btn-inverse">Мои</a>
+	</div>
+	<div class="exercise col-xs-12 col-md-4" ng-repeat="exercise in vm.exercises | filter:vm.filters">
+		<div class="card card-inverse">
+			<div class="panel-body">
+				<div class="card-body">
+				 	<h2>{{ exercise.full_name }}</h2>
+				    <div class="card-image embed-responsive embed-responsive-16by9" class="text-center" ng-show="exercise.video_url.indexOf('youtube') > -1">
+				        <youtube-video ng-show="exercise.video_url.indexOf('youtube') > -1" class="embed-responsive-item" video-url="exercise.video_url"></youtube-video>
+				        <img ng-show="exercise.video_url.indexOf('youtube') == -1" ng-src="{{exercise.video_url}}" alt="">
+				    </div>	
+				    <div class="card-image embed-responsive" class="text-center" ng-show="exercise.video_url.indexOf('youtube') == -1">
+				        <img ng-src="{{exercise.video_url}}" alt="">
+				    </div>	
+		            <p>Описание: {{ exercise.description | limitTo: 600 }}</p>
+			   		<author>Добавил: {{ exercise.added }}</author>
+			   		<a ng-show="exercise.added==vm.name" href="" ng-click="vm.removeExercise(exercise);" class="btn btn-danger btn-flat">Удалить</a>
+			   	</div>
+			</div>
+		</div>
+	</div>
+</div>

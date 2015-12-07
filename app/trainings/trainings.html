@@ -1,0 +1,16 @@
+<div class="row" ng-controller="TrainingsCtrl as vm">
+	<div class="col-xs-12 col-md-12"> 
+		<h1>Мои тренировки</h1>
+		<form name="newUser" ng-submit="vm.addTraining()">
+			<div ng-repeat="part in vm.parts track by $index">
+				<select class="form-control" ng-model="vm.selected[$index]">
+			      <option ng-repeat="option in vm.names" value="{{option}}">{{option}}</option>
+			    </select>
+				<input class="form-control" placeholder="Вес на упражнении в кг" type="text" ng-model="vm.weight[$index]">
+				<input class="form-control" placeholder="Количество подходов" type="text" ng-model="vm.count[$index]">
+			</div>
+			<a ng-click="vm.more();" class="more_exercises btn btn-inverse btn-flat">Добавить упражнение</a>
+			<button class="btn btn-inverse">Добавить тренировку</button>
+		</form>
+	</div>
+</div>

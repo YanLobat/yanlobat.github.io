@@ -1,0 +1,10 @@
+<div class="row" ng-controller="EditCtrl as vm">
+	<div class="col-xs-12 col-md-12"> 
+		<h1>Укажи информацию о себе</h1>
+		<form name="newUser" ng-submit="vm.saveUser()">
+			<input class="form-control" placeholder="Ваш возраст" type="number" ng-model="vm.age">
+			<input class="form-control" placeholder="Ваше имя" type="text" ng-model="vm.real_name">
+			<button class="btn btn-inverse">Сохранить</button>
+		</form>
+	</div>
+</div>
