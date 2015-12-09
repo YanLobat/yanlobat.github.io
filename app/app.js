@@ -94,6 +94,34 @@ $.material.init();
 		};
 })();
 ;(function(){
+	'use strict';
+	angular
+		.module('ngFit.about',['ngRoute'])
+		.config(configAbout)
+		.controller('AboutCtrl',AboutCtrl);
+
+	AboutCtrl.$inject = ['$scope','$rootScope'];
+
+	function AboutCtrl($scope,$rootScope,$log){
+		var vm = this; //чтобы не путаться в областях видимости(не забывать в конфиге про контроллер эз)
+
+		$rootScope.curPath = 'about';
+
+		vm.title = "О нас";
+	}
+
+	configAbout.$inject = ['$routeProvider'];
+
+	function configAbout($routeProvider){
+		$routeProvider.
+			when("/about",{
+				templateUrl: "app/about/about.html",
+				controller: 'AboutCtrl',
+				controllerAs: 'vm'
+			});
+	}
+})();
+;(function(){
 	"use strict";
 	/*angular
 		.module('ngFit.auth', ['firebase'])
@@ -142,34 +170,6 @@ $.material.init();
 			when("/contact",{
 				templateUrl: "app/contact/contact.html",
 				controller: 'ContactCtrl',
-				controllerAs: 'vm'
-			});
-	}
-})();
-;(function(){
-	'use strict';
-	angular
-		.module('ngFit.about',['ngRoute'])
-		.config(configAbout)
-		.controller('AboutCtrl',AboutCtrl);
-
-	AboutCtrl.$inject = ['$scope','$rootScope'];
-
-	function AboutCtrl($scope,$rootScope,$log){
-		var vm = this; //чтобы не путаться в областях видимости(не забывать в конфиге про контроллер эз)
-
-		$rootScope.curPath = 'about';
-
-		vm.title = "О нас";
-	}
-
-	configAbout.$inject = ['$routeProvider'];
-
-	function configAbout($routeProvider){
-		$routeProvider.
-			when("/about",{
-				templateUrl: "app/about/about.html",
-				controller: 'AboutCtrl',
 				controllerAs: 'vm'
 			});
 	}
@@ -256,11 +256,15 @@ $.material.init();
 			fitfire.addUser(vm.user);
 		};
 		vm.addExercise = function(){
-			if (vm.check()){
-				vm.exercise = {};
+			if (vm.check() && vm.validate()){
 				fitfire.addExercise(vm.exercise,vm.name);
 			}
 		};
+		vm.validate = function(){
+			if ((vm.exercise.full_name) && (vm.exercise.video_url) && (vm.exercise.description))
+				return true;
+			return false;
+		}
 		vm.removeExercise = function(_exercise){
 			if (vm.check()){
 				fitfire.removeExercise(_exercise);
